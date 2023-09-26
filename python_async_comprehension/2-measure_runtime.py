@@ -6,7 +6,7 @@ parallel using asyncio.gather.
 measure_runtime should measure the total runtime and return it.
 
 Notice that the total runtime is roughly 10 seconds, explain it to yourself."""
-import asyncio
+from asyncio import gather
 import time
 
 async_comprehension = __import__('1-async_comprehension').async_comprehension
@@ -15,7 +15,7 @@ async_comprehension = __import__('1-async_comprehension').async_comprehension
 async def measure_runtime() -> float:
     """Returns the runtime of four async_comprehensions executed in parallel"""
     t = time.perf_counter()
-    await asyncio.gather(
+    await gather(
         *(async_comprehension() for i in range(4))
     )
     return time.perf_counter() - t
