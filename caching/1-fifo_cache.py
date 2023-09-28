@@ -15,8 +15,7 @@ def get(self, key):
 Must return the value in self.cache_data linked to key.
 If key is None or if the key doesn’t exist in self.cache_data, return None.
 """
-
-BaseCaching = __import__('base_caching').BaseCaching
+from base_caching import BaseCaching
 
 
 class FIFOCache(BaseCaching):
@@ -27,6 +26,10 @@ class FIFOCache(BaseCaching):
         discards the first put item and prints it"""
         if key is None or item is None:
             return
+
+        if key in self.cache_data:
+            del self.cache_data[key]
+
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             first = next(iter(self.cache_data))
             print("DISCARD: {}".format(first))
