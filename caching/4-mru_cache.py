@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a class LRUCache that inherits from BaseCaching and is a caching
+"""Create a class MRUCache that inherits from BaseCaching and is a caching
 system:
 
 You must use self.cache_data - dictionary from the parent class BaseCaching
@@ -9,7 +9,7 @@ def put(self, key, item):
 Must assign to the dictionary self.cache_data the item value for the key key.
 If key or item is None, this method should not do anything.
 If the number of items in self.cache_data is higher that BaseCaching.MAX_ITEMS:
-you must discard the least recently used item (LRU algorithm)
+you must discard the most recently used item (MRU algorithm)
 you must print DISCARD: with the key discarded and following by a new line
 def get(self, key):
 Must return the value in self.cache_data linked to key.
@@ -19,8 +19,8 @@ from base_caching import BaseCaching
 from collections import OrderedDict
 
 
-class LRUCache(BaseCaching):
-    """Simple LRU caching system"""
+class MRUCache(BaseCaching):
+    """Simple MRU caching system"""
 
     def __init__(self):
         """Initialization"""
@@ -29,7 +29,7 @@ class LRUCache(BaseCaching):
 
     def put(self, key, item):
         """Adds an item to the cache. If it would exceed the MAX_ITEMS limit,
-        discards the least recently used item and prints it"""
+        discards the most recently used item and prints it"""
         if key is None or item is None:
             return
 
@@ -39,9 +39,9 @@ class LRUCache(BaseCaching):
             return
 
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            least_recently_used = self.item_use_order.popitem(False)
-            self.cache_data.pop(least_recently_used)
-            print("DISCARD: {}".format(least_recently_used))
+            most_recently_used = self.item_use_order.popitem()[0]
+            self.cache_data.pop(most_recently_used)
+            print("DISCARD: {}".format(most_recently_used))
 
         self.cache_data[key] = item
         self.item_use_order[key] = None
