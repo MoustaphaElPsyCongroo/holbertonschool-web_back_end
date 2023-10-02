@@ -37,10 +37,32 @@ fields from user_data.csv that are considered PII. PII_FIELDS can contain only
 5 fields - choose the right list of fields that can are considered as
 “important” PIIs or information that you must hide in your logs. Use it to
 parameterize the formatter.
+
+3-
+Database credentials should NEVER be stored in code or checked into version
+control. One secure option is to store them as environment variable on the
+application server.
+
+In this task, you will connect to a secure holberton database to read a users
+table. The database is protected by a username and password that are set as
+environment variables on the server named PERSONAL_DATA_DB_USERNAME (set the
+default as “root”), PERSONAL_DATA_DB_PASSWORD (set the default as an empty
+string) and PERSONAL_DATA_DB_HOST (set the default as “localhost”).
+
+The database name is stored in PERSONAL_DATA_DB_NAME.
+
+Implement a get_db function that returns a connector to the database
+(mysql.connector.connection.MySQLConnection object).
+
+Use the os module to obtain credentials from the environment
+Use the module mysql-connector-python to connect to the MySQL database (pip3
+install mysql-connector-python)
 """
 import logging
 from typing import List
+import os
 import re
+from mysql.connector.connection import MySQLConnection
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
@@ -92,3 +114,15 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db() -> MySQLConnection:
+    """Gets a connector to the database"""
+    username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.environ.get("PERSONAL_DATA_DB_NAME")
+
+    connector = MySQLConnection(
+        user=username, password=password, host=host, database=db_name)
+    return connector
