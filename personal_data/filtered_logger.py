@@ -126,3 +126,31 @@ def get_db() -> MySQLConnection:
     connector = MySQLConnection(
         user=username, password=password, host=host, database=db_name)
     return connector
+
+
+def main() -> None:
+    """Gets all users in db and filters their data"""
+    connection = get_db()
+    cursor = connection.cursor()
+    select_users_query = "SELECT *  FROM users"
+
+    cursor.execute(select_users_query)
+    records = cursor.fetchall()
+
+    logger = get_logger()
+
+    for row in records:
+        record = (
+            f"name={row[0]};email={row[1]};phone={row[2]};ssn={row[3]};"
+            f"password={row[4]};ip={row[5]};last_login={row[6]};"
+            f"user_agent={row[7]};"
+        )
+
+        logger.info(record)
+
+    cursor.close()
+    connection.close()
+
+
+if __name__ == "__main__":
+    main()
