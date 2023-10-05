@@ -29,7 +29,6 @@ else:
 @app.before_request
 def filter_requests() -> None:
     """Filters each incoming requests"""
-    print('started')
     if auth is None:
         return
 
@@ -44,7 +43,7 @@ def filter_requests() -> None:
         abort(401)
 
     if auth.authorization_header(request) is None:
-        abort(401)
+        abort(403)
 
     if auth.current_user(request) is None:
         abort(403)
