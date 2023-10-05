@@ -1,14 +1,30 @@
-#!/usr/bin/env python3
-""" Main 3
+#!/usr/bin/python3
+""" Check response
 """
-from api.v1.auth.basic_auth import BasicAuth
 
-a = BasicAuth()
+if __name__ == "__main__":
 
-print(a.decode_base64_authorization_header(None))
-print(a.decode_base64_authorization_header(89))
-print(a.decode_base64_authorization_header("Holberton School"))
-print(a.decode_base64_authorization_header("SG9sYmVydG9u"))
-print(a.decode_base64_authorization_header("SG9sYmVydG9uIFNjaG9vbA=="))
-print(a.decode_base64_authorization_header(
-    a.extract_base64_authorization_header("Basic SG9sYmVydG9uIFNjaG9vbA==")))
+    try:
+        from api.v1.auth.session_auth import SessionAuth
+        sa = SessionAuth()
+        user_id_1 = "User 1"
+        session_id_1 = sa.create_session(user_id_1)
+        if session_id_1 is None:
+            print("Can't create session ID")
+            exit(1)
+
+        new_user_id_1 = sa.user_id_for_session_id(session_id_1)
+        if new_user_id_1 is None:
+            print(
+                "user_id_for_session_id doesn't return the user ID linked to the session ID")
+            exit(1)
+
+        if new_user_id_1 != user_id_1:
+            print(
+                "user_id_for_session_id doesn't return the user ID linked to the session ID created previously")
+            exit(1)
+
+        print("OK", end="")
+    except:
+        import sys
+        print("Error: {}".format(sys.exc_info()))
