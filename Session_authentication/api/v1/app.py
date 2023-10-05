@@ -42,9 +42,6 @@ def filter_requests() -> None:
             and auth.session_cookie(request) is None):
         abort(401)
 
-    if auth.authorization_header(request) is None:
-        abort(403)
-
     if auth.current_user(request) is None:
         abort(403)
 

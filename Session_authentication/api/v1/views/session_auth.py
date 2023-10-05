@@ -11,11 +11,11 @@ def authenticate() -> str:
     """Authenticate users using session auth"""
 
     email = request.form.get('email')
-    if not email or email == "":
+    if not email:
         return jsonify({'error': 'email missing'}), 400
 
     password = request.form.get('password')
-    if not password or password == "":
+    if not password:
         return jsonify({'error': 'password missing'}), 400
 
     users = User.search({"email": email})
