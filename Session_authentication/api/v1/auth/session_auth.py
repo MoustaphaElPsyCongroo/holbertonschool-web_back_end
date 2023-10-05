@@ -6,10 +6,7 @@ import uuid
 
 class SessionAuth(Auth):
     """Session authentication class"""
-
-    def __init__(self):
-        """Initialization"""
-        self.user_id_by_session_id = {}
+    user_id_by_session_id: dict = {}
 
     def create_session(self, user_id: str = None) -> str:
         """Generate a uuid4 session id"""
