@@ -12,6 +12,7 @@ class SessionAuth(Auth):
         self.user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
+        """Generate a uuid4 session id"""
         if user_id is None:
             return None
         if not isinstance(user_id, str):
