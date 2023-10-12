@@ -36,3 +36,14 @@ class Auth:
         user = self._db.add_user(email, hashed_password)
 
         return user
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """Validates that specified password matches the registered encrypted
+        one for this user"""
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return False
+
+        encoded_password = password.encode('utf-8')
+        return bcrypt.checkpw(encoded_password, user.hashed_password)
