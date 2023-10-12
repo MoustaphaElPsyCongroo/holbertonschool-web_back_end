@@ -29,7 +29,7 @@ class Auth:
         except NoResultFound:
             exists = True
 
-        if exists:
+        if exists is True:
             raise ValueError(f"User {email} already exists.")
 
         hashed_password = _hash_password(password)
