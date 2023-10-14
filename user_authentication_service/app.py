@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from auth import Auth
 
 AUTH = Auth()
@@ -25,6 +25,22 @@ def users():
         return jsonify({"email": email, "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
+
+
+@app.route('/sessions', methods=['POST'])
+def login():
+    """Logs users in"""
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if AUTH.valid_login(email, password) is False:
+        abort(401)
+
+    cookie = AUTH.create_session(email)
+    res = jsonify({"email": email, "message": "logged in"})
+    res.set_cookie("session_id", cookie)
+
+    return res
 
 
 if __name__ == "__main__":
