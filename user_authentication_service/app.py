@@ -43,5 +43,16 @@ def login():
     return res
 
 
+@app.route('/sessions', methods=['DELETE'])
+def logout():
+    """Logs users out"""
+    session_id = request.form.get('session_id')
+
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user:
+        AUTH.destroy_session(user.id, session_id)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
