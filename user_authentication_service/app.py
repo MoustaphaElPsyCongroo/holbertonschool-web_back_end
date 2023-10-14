@@ -47,10 +47,9 @@ def login():
 def logout():
     """Logs users out"""
     session_id = request.form.get('session_id')
-
     user = AUTH.get_user_from_session_id(session_id)
 
-    if user:
+    if user is not None:
         AUTH.destroy_session(user.id)
         return redirect('/')
     else:
