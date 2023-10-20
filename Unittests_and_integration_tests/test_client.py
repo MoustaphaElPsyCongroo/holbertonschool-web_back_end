@@ -29,5 +29,5 @@ class TestGithubOrgClient(unittest.TestCase):
         with patch('client.GithubOrgClient.org',
                    new_callable=PropertyMock) as mock_org:
             mock_org.return_value = expected_json
-            org = GithubOrgClient("test").org
-            self.assertEqual(org, mock_org.return_value)
+            repos_url = GithubOrgClient("test")._public_repos_url
+            self.assertEqual(repos_url, mock_org.return_value['repos_url'])
