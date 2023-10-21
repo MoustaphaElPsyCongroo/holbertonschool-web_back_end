@@ -2,6 +2,7 @@
 """client.py test module"""
 import unittest
 from unittest.mock import patch, Mock, PropertyMock
+
 from parameterized import parameterized
 from client import GithubOrgClient
 
@@ -64,3 +65,9 @@ class TestGithubOrgClient(unittest.TestCase):
         """Test has_license"""
         self.assertEqual(GithubOrgClient.has_license(
             repo, license_key), expected)
+
+
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """GithubOrgClient integration tests"""
+    @classmethod
+    def setUpClass(cls):
