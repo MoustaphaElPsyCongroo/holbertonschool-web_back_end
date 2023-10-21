@@ -34,12 +34,16 @@ def get_locale():
 
 
 @babel.timezoneselector
-def get_timezone():
+def get_timezone() -> str:
     """Get the appropriate timezone for each request"""
     timezone = request.args.get('timezone')
     try:
         if pytz.timezone(timezone):
             return timezone
+    except pytz.exceptions.UnknownTimeZoneError:
+        pass
+
+    try:
         if 'user' in g and g.user:
             timezone = g.user.get('timezone')
             if pytz.timezone(timezone):
@@ -79,7 +83,7 @@ def before_request():
 @app.route('/')
 def index():
     """Index route"""
-    return render_template('6-index.html')
+    return render_template('7-index.html')
 
 
 if __name__ == "__main__":
