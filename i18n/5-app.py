@@ -38,7 +38,9 @@ users = {
 
 def get_user():
     """Get a user in 'db' (here simple users object)"""
-    user_id = int(request.args.get('login_as'))
+    login_as = request.args.get('login_as')
+    user_id = int(login_as) if login_as else None
+
     user = users.get(user_id)
 
     if user_id is None or user is None:
