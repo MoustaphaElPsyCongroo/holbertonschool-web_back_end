@@ -4,7 +4,7 @@ Main file
 """
 import redis
 
-Cache = __import__('exercise').Cache
+Cache = __import__("exercise").Cache
 
 cache = Cache()
 
@@ -14,4 +14,3 @@ print(key)
 
 local_redis = redis.Redis()
 print(local_redis.get(key))
-
