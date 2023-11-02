@@ -7,6 +7,25 @@ from uuid import uuid4
 import redis
 
 
+def call_history(method: Callable) -> Callable:
+    """Decorator to cache history of inputs and outputs of functions"""
+
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """Decorator wrapper"""
+        key = method.__qualname__
+        input_key = key + ":inputs"
+        output_key = key + ":outputs"
+        output = method(self, *args, **kwargs)
+
+        self._redis.rpush(input_key, str(args))
+        self._redis.rpush(output_key, str(output))
+
+        return output
+
+    return wrapper
+
+
 def count_calls(method: Callable) -> Callable:
     """Decorator to count calls of Cache methods"""
 
@@ -28,6 +47,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Stores input data at a random key, returning the key"""
