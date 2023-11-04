@@ -1,21 +1,19 @@
--- Initial for ex 4
+-- Initial
 DROP TABLE IF EXISTS items;
 
 DROP TABLE IF EXISTS orders;
 
 CREATE TABLE IF NOT EXISTS items (
 	name VARCHAR(255) NOT NULL,
-	quantity int NOT NULL DEFAULT 10
+	quantity INT NOT NULL DEFAULT 10
 );
 
-CREATE TABLE IF NOT EXISTS orders (
-	item_name VARCHAR(255) NOT NULL,
-	number int NOT NULL
-);
+CREATE TABLE IF NOT EXISTS orders (item_name VARCHAR(255) NOT NULL, number INT NOT NULL);
 
 INSERT INTO
-	items (name)
+	items (name, quantity)
 VALUES
-	("apple"),
-	("pineapple"),
-	("pear");
+	("item 0", 10),
+	("item 1", 15),
+	("item 2", 20),
+	("item 3", 25);

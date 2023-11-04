@@ -6,6 +6,6 @@ INSERT
 UPDATE
 	items
 SET
-	quantity = quantity - 1
+	quantity = quantity - NEW.number
 WHERE
 	name = NEW.item_name
