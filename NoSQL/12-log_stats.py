@@ -31,7 +31,6 @@ def extract_stats_from_logs():
     ]
     result = db.nginx.aggregate(pipeline)
     result = list(result)
-    print(result)
 
     if result[0]["total_logs"]:
         total = result[0]["total_logs"][0]["count"]
