@@ -31,16 +31,18 @@ def extract_stats_from_logs():
     ]
     result = db.nginx.aggregate(pipeline)
     result = list(result)
+    print(result)
 
-    total = result[0]["total_logs"][0]["count"]
+    if result[0]["total_logs"]:
+        total = result[0]["total_logs"][0]["count"]
 
-    for method in result[0]["methods_stats"]:
-        method_name = method["_id"]
+        for method in result[0]["methods_stats"]:
+            method_name = method["_id"]
 
-        if method_name in stats:
-            stats[method_name] = method["count"]
+            if method_name in stats:
+                stats[method_name] = method["count"]
 
-    status = result[0]["status_occurrences"][0]["count"]
+        status = result[0]["status_occurrences"][0]["count"]
 
     print(f"{total} logs")
     print("Methods:")
