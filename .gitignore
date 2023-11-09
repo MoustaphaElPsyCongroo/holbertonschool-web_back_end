@@ -3,3 +3,4 @@ __pycache__
 .vscode
 pyproject.toml
 dump.rdb
+node_modules
