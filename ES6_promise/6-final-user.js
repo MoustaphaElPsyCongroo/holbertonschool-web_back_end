@@ -9,7 +9,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
     return responses.map((response) => {
       return {
         status: response.status,
-        value: response.value,
+        value: response.reason || response.value,
       };
     });
   });
