@@ -10,6 +10,6 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
     value:
       response.status === 'fulfilled'
         ? response.value
-        : response.reason.message,
+        : `Error: ${response.reason.message}`,
   })));
 }
