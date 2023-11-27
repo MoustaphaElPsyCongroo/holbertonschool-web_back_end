@@ -13,7 +13,7 @@ following format: Number of students in FIELD: 6. List: LIST_OF_FIRSTNAMES
 CSV file can contain empty lines (at the end) - and they are not a valid
 student!
 */
-const fs = require('node:fs');
+const fs = require('fs');
 
 module.exports = function countStudents(path) {
   let rawData = null;
