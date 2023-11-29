@@ -55,7 +55,7 @@ const app = http.createServer((req, res) => {
           res.end(trimmed);
         })
         .catch((err) => {
-          res.end(err);
+          res.end(err.message);
         });
     }
   }
