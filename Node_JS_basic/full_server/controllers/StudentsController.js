@@ -10,9 +10,7 @@ class StudentsController {
       readDatabase(path)
         .then((students) => {
           let resData = 'This is the list of our students\n';
-          const sortedStudents = Object.entries(students).sort((a, b) =>
-            a[0].localeCompare(b[0])
-          );
+          const sortedStudents = Object.entries(students).sort((a, b) => a[0].localeCompare(b[0]));
 
           for (const [field, studentList] of sortedStudents) {
             resData += `Number of students in ${field}: ${
