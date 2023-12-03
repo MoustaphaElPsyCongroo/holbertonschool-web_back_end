@@ -1,17 +1,17 @@
 module.exports = function calculateNumber(type, a, b) {
-  a = Math.round(a);
-  b = Math.round(b);
+  const x = Math.round(a);
+  const y = Math.round(b);
 
   switch (type) {
     case 'SUM':
-      return a + b;
+      return x + y;
     case 'SUBTRACT':
-      return a - b;
+      return x - y;
     case 'DIVIDE': {
-      if (b === 0) {
+      if (y === 0) {
         return 'Error';
       }
-      return a / b;
+      return x / y;
     }
     default:
       return 'Error';
