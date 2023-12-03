@@ -1,12 +1,14 @@
 {
   "dependencies": {
     "chai": "^4.3.10",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "sinon": "^17.0.1"
   },
   "scripts": {
     "test": "mocha"
   },
   "devDependencies": {
+    "@sinonjs/eslint-config": "^5.0.1",
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",

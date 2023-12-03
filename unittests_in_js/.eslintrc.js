@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'airbnb-base',
+    "@sinonjs/eslint-config"
   ],
   globals: {
     Atomics: 'readonly',
