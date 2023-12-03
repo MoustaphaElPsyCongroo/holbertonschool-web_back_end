@@ -4,22 +4,28 @@ const sinon = require('sinon');
 const sendPaymentRequestToAPI = require('./3-payment');
 
 describe('sendPaymentRequestToAPI', () => {
+  let calculateNumberSpy;
+
+  beforeEach(() => {
+    calculateNumberSpy = sinon.spy(Utils, 'calculateNumber');
+  })
+
+  afterEach(() => {
+    calculateNumberSpy.restore();
+  })
+
   it('should call Utils.calculateNumber', () => {
-    const spy = sinon.spy(Utils, 'calculateNumber');
 
     sendPaymentRequestToAPI(1, 2);
 
-    expect(spy.calledWith('SUM', 1, 2)).to.be.true;
-    spy.restore();
+    expect(calculateNumberSpy.calledWith('SUM', 1, 2)).to.be.true;
   });
 
   it('should call Utils.calculateNumber only once', () => {
-    const spy = sinon.spy(Utils, 'calculateNumber');
 
     sendPaymentRequestToAPI(1, 2);
 
-    expect(spy.calledOnce).to.be.true;
-    spy.restore();
+    expect(calculateNumberSpy.calledOnce).to.be.true;
   })
 });
 
