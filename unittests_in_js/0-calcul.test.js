@@ -14,7 +14,7 @@ describe("calculateNumber", function () {
     assert.equal(calculateNumber(0, 1.7), 2);
   });
 
-  it("should should return the right number", () => {
+  it("should return the sum of arguments", () => {
     assert.equal(calculateNumber(1.3, 0), 1);
     assert.equal(calculateNumber(0, 1.2), 1);
     assert.equal(calculateNumber(1.3, 1.3), 2);
