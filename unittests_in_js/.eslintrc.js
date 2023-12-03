@@ -5,7 +5,6 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'airbnb-base',
     "@sinonjs/eslint-config"
   ],
   globals: {
